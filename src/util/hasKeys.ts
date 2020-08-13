@@ -22,9 +22,8 @@ export default class HasKeys {
     let newkeys = Array.isArray(keys) ? keys : [keys];
     let len = newkeys.length;
     while (len--) {
-      if (!(keys[len] in obj)) return false;
+      if (!(newkeys[len] in obj)) return false;
     }
-
     return true;
   };
 }
