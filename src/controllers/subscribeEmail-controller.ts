@@ -20,9 +20,12 @@ export default class SubscribeEmail extends QueryModel {
     if (response) {
       return res.status(200).json(response);
     }
-    return res.status(400).json({
-      message:
-        "opps, Ocurrio un error inesperado, por favor intentalo mas tarde.",
-    });
+    return res.status(500).json(this.captureError.response500());
+  };
+
+  getSubscribeEmails = async (_req: Request, res: Response) => {
+    const response = await this.getDatas();
+    if (response) return res.status(200).json(response);
+    return res.status(500).json(response);
   };
 }
