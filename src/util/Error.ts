@@ -11,15 +11,7 @@ import {
  */
 export type StatusConsult = {
   status: boolean;
-  data: any;
-  message: string;
-};
-
-/**
- * capture status para las mutaciones
- */
-export type statusMutation = {
-  status: boolean;
+  data?: any;
   message: string;
 };
 
@@ -127,60 +119,35 @@ export default class CaptureError {
   };
 
   /**
-   * esta funcion retorna un objeto con un status 401, donde
-   * especifica que ocurrio un error inesperado en la consulta.
-   * @message `Ocurrio un error inesperado en la consulta, por favor puede intentarlo mas tarde.`
+   * @param status true
+   * @param data any
+   * @param message "Se realizo con exito esta consulta"
    */
-  public status401 = (message?: string): StatusConsult => ({
-    status: false,
-    data: [],
-    message:
-      message ||
-      "Ocurrio un error inesperado en la consulta, por favor puede intentarlo mas tarde.",
-  });
 
-  /**
-   * esta funcion retorna un objeto con un status 404, que
-   * especifica que la consulta esta vacio y no se econtro
-   * ninguna recurso a mostrar
-   * @message `No se encontraron datos para esta consulta, por favor intentelo mas tarde.`
-   */
-  public status404 = (message?: string): StatusConsult => ({
-    status: false,
-    data: [],
-    message:
-      message ||
-      "No se encontraron datos para esta consulta, por favor intentelo mas tarde.",
-  });
-
-  /**
-   * esta funcion retorna un objeto con un status 200, que especifica que
-   * la consulta se realizo con exito y de que contiene datos para mostrar
-   * @message `Se realizo con exito la consulta.`
-   */
-  public status200 = (data: any, message?: string): StatusConsult => ({
+  public response200 = (data: any, message?: string) => ({
     status: true,
+    message: message || "Se realizo con exito esta consulta",
     data: data,
-    message: message || "Se realizo con exito la consulta.",
   });
 
   /**
-   * esta funcion retorna un objeto con un status 200, que especifica que
-   * la mutacion se realizo con exito y de que contiene datos para mostrar
-   * @message `Se ${message} con exito esta acción.`
+   * @param status false
+   * @param  message "opps, Ocurrio un error inesperado, por favor intentalo mas tarde.",
    */
-  public statusMutation200 = (message: string): statusMutation => ({
-    status: true,
-    message: `Se ${message} con exito esta acción.`,
-  });
 
-  /**
-   * esta funcion retorna un objeto con un status 401, donde
-   * especifica que ocurrio un error inesperado en la mutacion.
-   * @message `Ocurrio un error inesperado ${message} , por favor intentelo mas tarde.`
-   */
-  public statusMutation401 = (message: string): statusMutation => ({
+  public response500 = () => ({
     status: false,
-    message: `Ocurrio un error inesperado ${message}, por favor intentelo mas tarde.`,
+    message:
+      "opps, Ocurrio un error inesperado, por favor intentalo mas tarde.",
+  });
+
+  /**
+   * @param status false
+   *  @param message "No se encontro ningún resultado para esta consulta."
+   */
+
+  public response404 = () => ({
+    status: false,
+    message: "No se encontro ningún resultado para esta consulta.",
   });
 }
