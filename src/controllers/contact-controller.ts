@@ -52,14 +52,14 @@ export default class Contact extends QueryModel {
 
   deletedContac = async (req: Request, res: Response) => {
     // verificamos si el uid existe en el request
-    if (!has.getHaskey(req.body, "uid"))
+    if (!has.getHaskey(req.params, "uid"))
       return res.status(400).json({
         status: false,
-        message: "El uid es necesario para esta accion",
+        message: "El uid es necesario para esta acción",
       });
 
     // capturamos el iud
-    const { uid } = req.body;
+    const { uid } = req.params;
     const response = await this.deletedData(uid);
     if (response) return res.status(200).json(response);
     return res.status(500).json(this.captureError.response500());

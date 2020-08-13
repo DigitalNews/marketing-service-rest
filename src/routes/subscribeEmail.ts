@@ -23,9 +23,10 @@ export default class SubscribeEMail {
    * @param path endoinpoint base
    */
   public Endpoint(path: string): void {
-    this.router.post(
-      path + "/subscribe-email",
-      this.subscribeEMail.setSubscribeEmail
-    );
+    this.router
+      // metodo post
+      .post(path + "/subscribe-email", this.subscribeEMail.setSubscribeEmail)
+      // metodo get
+      .get(path + "/subscribe-email", this.subscribeEMail.getSubscribeEmails);
   }
 }

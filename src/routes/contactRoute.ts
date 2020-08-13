@@ -23,6 +23,12 @@ export default class UserRouter {
    * @param path endoinpoint base
    */
   public Endpoint(path: string): void {
-    this.router.post(path + "/contact", this.userController.setContact);
+    this.router
+    // metodo post
+    .post(path + "/contact", this.userController.setContact)
+    // metodo get
+    .get(path + "/contact", this.userController.getContacts)
+    // metodo deleted
+    .delete(path + "/contact/:uid", this.userController.deletedContac)
   }
 }
