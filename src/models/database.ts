@@ -33,7 +33,7 @@ const serviceAccount: any = {
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://digitalnew-c5f6a.firebaseio.com",
+  databaseURL: "https://admin-b5f69.firebaseio.com",
 });
 
 // export services
