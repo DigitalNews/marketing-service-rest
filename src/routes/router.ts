@@ -4,7 +4,7 @@ import express from "express";
 import userRouter from "./userRoutes";
 import contactRouter from "./contactRoute";
 import subscribeRoute from "./subscribeEmail";
-
+import analyticsRouter from './analyticsRoute' 
 /**
  * @author DigitalNew
  * @see https://digitalnew.solutions/
@@ -25,6 +25,6 @@ export default class Routes {
     new userRouter(app).Endpoint(this.pathname);
     new contactRouter(app).Endpoint(this.pathname);
     new subscribeRoute(app).Endpoint(this.pathname);
-    // [+] instanciar las rutas necesarias para el proyecto
+    new analyticsRouter(app).Endpoint(this.pathname)
   }
 }
