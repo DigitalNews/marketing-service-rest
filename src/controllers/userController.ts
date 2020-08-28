@@ -13,7 +13,7 @@ import has from "@util/hasKeys";
  */
 
 export default class UserControllers {
-  async getCalzadosAll(_req: Request, res: Response) {
+  async getUserAll(_req: Request, res: Response) {
     let prueba = usersModel.getCalzado();
     try {
       const resposne = await prueba.doc("example").get();
