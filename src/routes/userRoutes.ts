@@ -23,6 +23,23 @@ export default class UserRouter {
    * @param path endoinpoint base
    */
   public Endpoint(path: string): void {
-    this.router.get(path + "/users", this.userController.getCalzadosAll);
+     /**
+       * @api {get} /api/v1/users Solicitar tops navegadores
+       * @apiName GetTopBrowser
+       * @apiVersion 0.0.1
+       * @apiGroup Analytics
+       * @apiParam { string } viewid Identificación unica del proyecto a analizar de Google Analytics
+       * @apiSuccess {Boolean} status true.
+       * @apiSuccess {Object} data top Browser list.
+       * @apiError ViewIDNotFound   El <code>viewid</code> de google analytics no es valido.
+       * @apiError (500 Internal Server Error) InternalServerError The server encountered an internal error.
+       * @apiSuccessExample {json} Succes-Example
+       * HTTP/1.1 200 OK
+       * {
+       *    status: true,
+       *    data: [{}]
+       * }
+       */
+    this.router.get(path + "/users", this.userController.getUserAll);
   }
 }
