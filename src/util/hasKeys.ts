@@ -38,16 +38,14 @@ export default class HasKeys {
         let type: VariableType = newkeys[len].split("?")[1] as VariableType;
 
         // verficamos si el tipo de variable existe, caso contrario mostramos un error.
-        if (
-          !["boolean", "string", "object", "number"].includes(type || "string")
-        )
-          throw new Error(
-            `haskeys: Tipo de variable ${type} no es valido,
-             se espera de tipo number, string, object o boolean`
-          );
         if (type) {
+          if (!["boolean", "string", "object", "number"].includes(type))
+            throw new TypeError(
+              `haskeys: Tipo de variable ${type} no es valido,
+             se espera de tipo number, string, object o boolean`
+            );
           if (typeof newkeys[len].split("?")[0] !== type)
-            throw new Error(
+            throw new TypeError(
               `haskeys: El tipo de variable ${
                 newkeys[len].split("?")[0]
               } es de tipo ${typeof newkeys[len].split(
@@ -55,7 +53,16 @@ export default class HasKeys {
               )[0]} se espera un ${type}.`
             );
         }
-        if (type) typeof newkeys[len].split("?")[0] === type;
+
+        /**
+         * si es undefined por defecto el tipo de
+         *  variable a identificar seria string
+         **/
+        if (typeof newkeys[len].split("?")[0] !== "string")
+          throw new TypeError(
+            `haskeys: Tipo de variable ${type} no es valido,
+             se espera de tipo string.`
+          );
         callback && callback(newkeys[len].split("?")[0]);
         return false;
       }
