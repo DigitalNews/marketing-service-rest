@@ -69,4 +69,14 @@ export default class HasKeys {
     }
     return true;
   };
+
+  /**
+   *@function verifyStringV
+   * @param variable el tipo de variable a verificar
+   * @returns string | undefined
+   */
+  static verifyStringV(variable: any): string | undefined {
+    if (typeof variable !== "string") return undefined;
+    return variable;
+  }
 }
