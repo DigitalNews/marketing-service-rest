@@ -73,10 +73,31 @@ export default class HasKeys {
   /**
    *@function verifyStringV
    * @param variable el tipo de variable a verificar
+   * @param defaultV el tipo de variable a retornar por defecto
    * @returns string | undefined
    */
-  static verifyStringV(variable: any): string | undefined {
-    if (typeof variable !== "string") return undefined;
+  static verifyStringV(variable: any, defaultV?: string): string | undefined {
+    if (typeof variable !== "string") return defaultV;
+    return variable;
+  }
+
+  /**
+   *@function verifyNumberV
+   * @param variable La variable a verificar
+   * @returns number | undefined
+   */
+  static verifyNumberV(variable: any): number | undefined {
+    if (typeof variable !== "number") return undefined;
+    return variable;
+  }
+
+  /**
+   *@function verifyBooleanV
+   * @param variable La variable a verificar
+   * @returns boolean | undefined
+   */
+  static verifyBooleanV(variable: any): boolean | undefined {
+    if (typeof variable !== "boolean") return undefined;
     return variable;
   }
 }
