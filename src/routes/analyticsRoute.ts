@@ -94,11 +94,13 @@ export default class UserRouter {
       )
 
       /**
-       * @see https://ga-dev-tools.appspot.com/dimensions-metrics-explorer/
        * @api {get} /api/v1/analytics/info Solicitar informacion de anaylitics.
        * @apiName GetInfoAnalytics
        * @apiVersion 0.0.1
        * @apiGroup Analytics
+       * @apiDescription Mas información:
+       * [*] -> https://ga-dev-tools.appspot.com/dimensions-metrics-explorer/
+       * [*] -> https://developers.google.com/analytics/devguides/reporting/core/v3/reference?hl=es-419
        * @apiparam {String} dimensions A comma-separated list of Analytics dimensions. E.g., 'ga:browser,ga:city'.
        * @apiparam {String} metrics A comma-separated list of Analytics metrics. E.g., 'ga:sessions,ga:pageviews'. At least one metric must be specified.
        * @apiparam {String} viewid  Unique table ID for retrieving Analytics data. Table ID is of the form ga:XXXX, where XXXX is the Analytics view (profile) ID.
@@ -160,6 +162,35 @@ export default class UserRouter {
       .get(
         path + "/analytics/info",
         this.analyticsController.getInfoGoogleAnalytic
+      )
+
+      /**
+       * @api {get} /api/v1/analytics/countries-code Solicitar usuarios por paises
+       * @apiVersion 0.0.1
+       * @apiName getCountryByCode
+       * @apiGroup Analytics
+       * @apiParam { string } code Lista de codigo de paises. E.g. 'PE, CO, ...' o 'pe, co, ...', mas información:  https://developers.google.com/public-data/docs/canonical/countries_csv
+       * @apiSuccess {Boolean} status true.
+       * @apiSuccess {Object} data lista de de latitud y longitud por codigo de pais.
+       * @apiError code   El <code>code</code> es necesario para esta consulta.
+       * @apiError (500 Internal Server Error) InternalServerError The server encountered an internal error.
+       * @apiSuccessExample {json} Succes-Example
+       * HTTP/1.1 200 OK
+       * {
+       *    status: true,
+       *    data: [
+       *        [
+       *          "code",
+       *          "latitude",
+       *          "longitude"
+       *        ],
+       *        ...
+       *    ],
+       * }
+       */
+      .get(
+        path + "/analytics/countries-code",
+        this.analyticsController.getCountryByCode
       );
   }
 }
