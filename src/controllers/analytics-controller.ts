@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ganalytics, { jwt } from "@models/ganalytics";
 import has from "@util/hasKeys";
+import countries from "@util/countries.json";
 /**
  * @author DigitalNew
  * @version 1.0.1
@@ -190,6 +191,49 @@ export default class Analytics {
           });
         }
       }
+    }
+  };
+
+  getCountryByCode = (req: Request, res: Response) => {
+    const getCountries = (code: any, countries: any) => {
+      if (typeof code === "string") {
+        let parsecountries = code.split(",");
+        return parsecountries.map((e) => [
+          e.toUpperCase(),
+          countries[e.toUpperCase()]
+            ? countries[e.toUpperCase()]["longitude"]
+            : 0,
+          countries[e.toUpperCase()]
+            ? countries[e.toUpperCase()]["latitude"]
+            : 0,
+        ]);
+      }
+      return [];
+    };
+
+    try {
+      has.getHaskey(req.query, ["code"], (name) => {
+        if (name)
+          return res.status(400).json({
+            status: false,
+            message: name + " es necesario, por favor intentalo de nuevo.",
+          });
+      });
+
+      const { code } = req.query;
+
+      res.status(200).json({
+        status: true,
+        data: getCountries(code!, countries),
+      });
+    } catch (error) {
+      console.warn(error);
+      res.status(500).json({
+        status: false,
+        message:
+          "opps, ocurrio un erros inesperado, por favor intentelo mas tarde",
+        details: error,
+      });
     }
   };
 }
